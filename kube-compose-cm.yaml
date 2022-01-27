@@ -24,6 +24,8 @@ spec:
       labels:
         app: phpinfo
     spec:
+      imagePullSecrets:
+      - name: docker-login
       containers:
       - 
         args:

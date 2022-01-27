@@ -10,22 +10,19 @@ metadata:
 data:
   index.php: <?php phpinfo();?>
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: phpinfo-deploy
+  name: phpinfo-rc
 spec:
   replicas: 2
   selector:
-    matchLabels:
-      app: phpinfo
+    app: phpinfo
   template:
     metadata:
       labels:
         app: phpinfo
     spec:
-      imagePullSecrets:
-      - name: docker-login
       containers:
       - 
         args:
@@ -35,16 +32,15 @@ spec:
         - 0.0.0.0:8080
         command:
         - php
-        image: php
+        image: phpinfo:2022-01
         name: phpinfo-container
         ports:
         - containerPort: 8080
         volumeMounts:
         - 
-          mountPath: /src/index.php
+          mountPath: /src/
           name: phpinfo-volume
           readOnly: true
-          subPath: index.php
         workingDir: /src/
       volumes:
       - 
@@ -65,9 +61,10 @@ metadata:
 spec:
   ports:
   - 
+    nodePort: 30000
     port: 80
     targetPort: 8080
   selector:
     app: phpinfo
-  type: ClusterIP
+  type: NodePort
 ---

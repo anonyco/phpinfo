@@ -15,7 +15,7 @@ services:
           - "node.role==manager"
       replicas: 2
     entrypoint: php
-    image: phpinfo:2022-01
+    image: docker.io/library/php:latest
     ports:
       - "30000:8080"
     working_dir: /src/

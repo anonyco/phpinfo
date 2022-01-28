@@ -63,6 +63,24 @@ jobs:                                                                          #
             curl ${ip}:30000 | grep "PHP.*phpinfo()" && break                  ;
           done                                                                 ;
                                                                                #
+  swarm-secret:                                                                #
+    runs-on: ubuntu-18.04                                                      #
+    steps:                                                                     #
+    - name: checkout                                                           #
+      uses: actions/checkout@v2                                                #
+    - name: init                                                               #
+      run: docker swarm init                                                   ;
+    - name: deploy                                                             #
+      run: docker stack deploy -c docker-compose-secret.yaml phpinfo           ;
+    - name: test                                                               #
+      run:                                                                     |
+        while true                                                             ;
+          do                                                                   \
+            sleep 10                                                           ;
+            ip=$( ip r | grep -v docker | awk '/kernel/{ print $9 }' )         ;
+            curl ${ip}:30000 | grep "PHP.*phpinfo()" && break                  ;
+          done                                                                 ;
+                                                                               #
   kubernetes:                                                                  #
     env:                                                                       #
       mode: kubernetes                                                         #

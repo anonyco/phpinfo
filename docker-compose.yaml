@@ -7,7 +7,7 @@ services:
           - "node.role==worker"
       replicas: 2
     entrypoint: php
-    image: phpinfo:2022-01
+    image: docker.io/library/php:latest
     ports:
       - "30000:8080"
     volumes:

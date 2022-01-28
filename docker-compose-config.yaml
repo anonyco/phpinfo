@@ -12,7 +12,7 @@ services:
     deploy:
       placement:
         constraints:
-          - "node.role==worker"
+          - "node.role==manager"
       replicas: 2
     entrypoint: php
     image: phpinfo:2022-01

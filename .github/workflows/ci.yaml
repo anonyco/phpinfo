@@ -13,13 +13,11 @@ jobs:                                                                          #
     steps:                                                                     #
     - name: checkout                                                           #
       uses: actions/checkout@v2                                                #
-    - name: build                                                              #
-      run: docker build -f Dockerfile -t phpinfo:2022-01 .                     ;
     - name: run                                                                #
       run:                                                                     >
         docker run -d --entrypoint php --name phpinfo -p 30000:8080            \
-          -v $PWD/src/index.php:/src/index.php:ro -w /src/ phpinfo:2022-01     \
-          -f index.php -S 0.0.0.0:8080                                         ;
+          -v $PWD/src/index.php:/src/index.php:ro -w /src/                     \
+          docker.io/library/php:latest -f index.php -S 0.0.0.0:8080            ;
     - name: test                                                               #
       run:                                                                     |
         while true                                                             ;

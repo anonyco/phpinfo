@@ -45,7 +45,11 @@ git checkout 2022-01
 git pull
 ```
 ```
-docker build -f Dockerfile -t phpinfo:2022-01 .
+# not needed
+# docker build -f Dockerfile -t phpinfo:2022-01 .
+```
+```
+docker swarm init 
 ```
 ```
 docker stack deploy -c docker-compose.yaml phpinfo

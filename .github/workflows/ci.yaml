@@ -32,12 +32,8 @@ jobs:                                                                          #
     steps:                                                                     #
     - name: checkout                                                           #
       uses: actions/checkout@v2                                                #
-    - name: build                                                              #
-      run: docker build -f Dockerfile -t phpinfo:2022-01 .                     ;
     - name: init                                                               #
       run: docker swarm init                                                   ;
-    - name: role                                                               #
-      run: sed -i /node.role/s/worker/manager/ docker-compose.yaml             ;
     - name: deploy                                                             #
       run: docker stack deploy -c docker-compose.yaml phpinfo                  ;
     - name: test                                                               #
